@@ -1,16 +1,29 @@
-# Retail Sales Analysis
+# _Retail Sales Analysis_
 ## Project Overview
-This project takes a look at the business data to analyze data to provide insights into various aspects such as product sales performance, customer behaviour, product demand, and staff performance. I have used SQLite to extract meaningful information from a relational database.
+This project looks at the business data to analyze various aspects such as product sales performance, customer behaviour, product demand, and staff performance. I have used SQLite to extract meaningful information from a relational database.
 
 ## Data Sources
-The primary dataset used for the analysis is the "stores.db" file available in the repository within 'data' .
-
+The primary dataset used for the analysis is the "stores.db" file available in the repository within 'data'.
 ## Tools
 SQLite - Data Analysis
+## Data
+Here are the different tables with their respective attributes and total number of rows.
 
+| Table Name    | Number of Attributes | Row Count |
+|---------------|----------------------|-----------|
+| Customers     | 13                   | 122       |
+| Products      | 9                    | 110       |
+| ProductLines  | 4                    | 7         |
+| Orders        | 7                    | 326       |
+| OrderDetails  | 5                    | 2996      |
+| Payments      | 4                    | 273       |
+| Employees     | 8                    | 23        |
+| Offices       | 9                    | 7         |
+
+To better understand the relationship take a look at the schema available in the above folders.
 ## Exploratory Data Analysis
-It involves exploring the stored data to answer questions, such as:<br/>
-#### Q1. What are the top 10 products which have the highest demand?<br/>
+It involves exploring the stored .bd file data to answer questions, such as:<br/>
+##### Q1. What are the top 10 products which have the highest demand?<br/>
 
 ```
 SELECT p.productCode, p.productName, p.productLine
