@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/srish/Desktop/SQL/SQLiteDatabaseBrowserPortable/Database/stores.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="browser pragmas query structure" current="2"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="125"/><column_width id="3" width="4975"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,9:maincustomers"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="customers" show_row_id="0" encoding="" plot_x_axis="_rowid_" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="158"/><column index="2" value="262"/><column index="3" value="159"/><column index="4" value="161"/><column index="5" value="152"/><column index="6" value="242"/><column index="7" value="188"/><column index="8" value="145"/><column index="9" value="101"/><column index="10" value="106"/><column index="11" value="104"/><column index="12" value="237"/><column index="13" value="102"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes><y_axis name="" line_style="0" point_shape="0" colour="#000000" active="0"/><y_axis name="Row #" line_style="1" point_shape="5" colour="#579d1c" active="0"/><y_axis name="_rowid_" line_style="1" point_shape="5" colour="#ffd320" active="0"/><y_axis name="customerNumber" line_style="1" point_shape="5" colour="#ff420e" active="1"/><y2_axis name="" line_style="0" point_shape="0" colour="#000000" active="0"/><y2_axis name="Row #" line_style="1" point_shape="5" colour="#83caff" active="1"/><y2_axis name="_rowid_" line_style="1" point_shape="5" colour="#7e0021" active="1"/><y2_axis name="customerNumber" line_style="1" point_shape="5" colour="#004586" active="0"/></plot_y_axes><global_filter/></table><table schema="main" name="orders" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="124"/><column index="2" value="96"/><column index="3" value="122"/><column index="4" value="118"/><column index="5" value="84"/><column index="6" value="300"/><column index="7" value="158"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">
+--Description:
+--The table ( customers )    contains several columns like the customer's name, number, address, credit limit, location etc.
+--The table ( employees )    has the employee's first, last name, email, code, job title and other details.
+--The table ( offices)       has the code, city, phone numbers, addresses, and territory.
+--The table ( orderdetails ) entails the order features like the orderNumber, productCode, price, quantity and other labels.
+--The table ( orders )       on the other hand showcases the order date, status, comments, shipping and required date for better tracking
+--The table ( payments )     has the check number, amount and the payment Date.
+--The table (productlines )  has the product description, images of products, and the html Description.
+--The table ( products )     is the last and presents us with the buy price, MSRP, stock quantity, description and the product vendor with other important details.
+
+--Code shows the total tables with the variables and number of rows.
+with 
+total_table as (
+select 'Customers' as table_name
+       , 13 as number_of_attributes
+       , count(*)
+from customers
+
+  union all 
+
+select 'Products' as table_name
+       , 9 as number_of_attributes
+       , count(*)
+from products
+
+ union all 
+
+select 'ProductLines' as table_name
+       , 4 as number_of_attributes
+       , count(*)
+from productlines
+
+ union all 
+
+select 'Orders' as table_name
+       , 7 as number_of_attributes
+       , count(*)
+from orders
+
+ union all 
+
+select 'OrderDetails' as table_name
+       , 5 as number_of_attributes
+       , count(*)
+from orderdetails
+
+ union all 
+
+select 'Payments' as table_name
+       , 4 as number_of_attributes
+       , count(*)
+from payments
+
+ union all 
+
+select 'Employees' as table_name
+       , 8 as number_of_attributes
+       , count(*)
+from employees
+
+ union all 
+
+select 'Offices' as table_name
+       , 9 as number_of_attributes
+       , count(*)
+from offices
+)
+select *
+from total_table
+
+
+--Q1. What are the top 10 products which have the highest demand?
+-------To calculate the products in demand, the stock ratio is considered.
+--------Its calculated by the sum of each product ordered divided by the quantity of product in stock.
+SELECT p.productCode
+       , p.productName
+	   , p.productLine
+	   , round(sum(o.quantityOrdered)/p.quantityInStock,2) as low_stock
+  from products p 
+  join orderdetails o
+    on p. productCode = o.productCode
+ group by p.productCode
+ order by low_stock desc
+ LIMIT 10
+
+--Q2. How Should We Match the Marketing and Communication Strategies to Customer Behavior?
+-------For this we calculate the most valuable cutomers for us. To find that we calculate the profit per customer.
+ 
+with 
+profit_per_customer as(
+select o.customerNumber
+       ,sum(od.quantityOrdered* (od.priceEach-p.buyPrice)) as profit
+from products p
+join orderdetails od
+on p.productCode = od.productCode
+join orders o
+on o.orderNumber = od.orderNumber
+group by customerNumber
+)
+select c.contactLastName||&quot; &quot;||c.contactFirstName as contact_name
+	   ,city
+	   ,country
+	   ,profit
+from profit_per_customer as ppc
+cross join customers as c
+on ppc.customerNumber = c.customerNumber
+order by profit DESC
+limit 5
+
+--Q3.Show the least valuable customers.
+
+with 
+profit_per_customer as(
+select o.customerNumber
+       ,sum(od.quantityOrdered* (od.priceEach-p.buyPrice)) as profit
+from products p
+join orderdetails od
+on p.productCode = od.productCode
+join orders o
+on o.orderNumber = od.orderNumber
+group by customerNumber
+)
+select c.contactLastName
+       ,c.contactFirstName
+	   ,city
+	   ,country
+	   ,profit
+from profit_per_customer as ppc
+cross join customers as c
+on ppc.customerNumber = c.customerNumber
+order by profit
+limit 5
+
+--We now have both most valuable and the lest valuable customers. 
+---We now consider both to take decisons what VIP customer wants and can ignore lest valuable ones if needed to.
+
+--Q4.Rank the top sales representatives who have achieved the highest sales figures in all the territories?
+
+WITH
+employee_sales_table as (
+select e.employeeNumber
+       ,e.firstName||&quot; &quot;||e.lastName as employee_name
+	   ,round(sum(od.quantityOrdered*od.priceEach),2) as total_amount
+  from customers c
+ join orders o
+    on o.customerNumber = c.customerNumber
+ join orderdetails od
+    on od.orderNumber = o.orderNumber
+ join employees e
+    on c.salesRepEmployeeNumber=e.employeeNumber
+ group by c.salesRepEmployeeNumber
+)
+select *, rank() over(order by total_amount desc) as rank
+from employee_sales_table
+order by total_amount DESC
+limit 5
+--The table shows the top 5 sales representatives among all the territories.
+---Payment amount has not been considered since many customers bought items on their own.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
