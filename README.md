@@ -1,4 +1,6 @@
 # _Model Cars Database Analysis_
+<img src="https://github.com/srishupadhyay/Retail_Insights/assets/171460110/8b8f066c-8827-4e4f-b064-077ee1bf79d8" alt="car" width="300"/>
+
 ## Project Overview
 This project looks at the business data to analyze various aspects such as product sales performance, customer behaviour, product demand, and staff performance. I have used SQLite to extract meaningful information from a relational database.
 
