@@ -2,14 +2,14 @@
 <img src="https://github.com/srishupadhyay/Retail_Insights/assets/171460110/8b8f066c-8827-4e4f-b064-077ee1bf79d8" alt="car" width="300"/>
 
 ## Project Overview
-This project looks at the business data to analyze various aspects such as product sales performance, customer behaviour, product demand, and staff performance. I have used SQLite to extract meaningful information from a relational database.
+This project looks at the sales data to analyze aspects such as product sales performance, customer behaviour, product demand, and staff performance. I have used SQLite to extract meaningful information from a relational database.
 
 ## Data Sources
 The primary dataset used for the analysis is the "stores.db" file available in the repository within 'Data'.
 ## Tools
 [SQLite](https://sqlitebrowser.org/dl/)
 ## Data
-Here are the different tables with their respective attributes and total number of rows.
+Here are the different tables with a total number of  attributes and rows.
 
 | Table Name    | Number of Attributes | Row Count |
 |---------------|----------------------|-----------|
@@ -119,9 +119,58 @@ select *
 The table shows the top 5 sales representatives among all the territories.<br/>
 The payment amount has not been considered since many customers have bought items independently.<br/>
 
-## Findings
-Findings are in a Word document in (.docx) format under the 'Results' category.
-## Recommendations 
-Recommendations are in a Word document in (.docx) format under the 'Results' category.
-## Limitations
-Limitations are in a Word document in (.docx) format under the 'Results' category.
+## Results
+1. The highest-selling and in-demand products are
+```
+| Product Code | Product Name                               | Product Line     | Quantity Sold |
+|--------------|--------------------------------------------|------------------|---------------|
+| S24_2000     | 1960 BSA Gold Star DBD34                   | Motorcycles      | 67.0          |
+| S12_1099     | 1968 Ford Mustang                          | Classic Cars     | 13.0          |
+| S32_4289     | 1928 Ford Phaeton Deluxe                   | Vintage Cars     | 7.0           |
+| S32_1374     | 1997 BMW F650 ST                           | Motorcycles      | 5.0           |
+| S72_3212     | Pont Yacht                                 | Ships            | 2.0           |
+| S700_3167    | F/A 18 Hornet 1/72                         | Planes           | 1.0           |
+| S700_1938    | The Mayflower                              | Ships            | 1.0           |
+| S50_4713     | 2002 Yamaha YZR M1                         | Motorcycles      | 1.0           |
+| S32_3522     | 1996 Peterbilt 379 Stake Bed with Outrigger| Trucks and Buses | 1.0           |
+| S18_2795     | 1928 Mercedes-Benz SSK                     | Vintage Cars     | 1.0           |
+```
+The higher the stock rate, the higher the demand is.<br/>
+**We should focus on restocking the above products otherwise timely deliveries won't be possible and can result in bad customer experience.**<br/>
+2. Strategies should be according to these VIP customers with the highest profit
+```
+| Name            | City        | Country     | Sales (in USD) |
+|-----------------|-------------|-------------|----------------|
+| Freyre Diego    | Madrid      | Spain       | 326,519.66     |
+| Nelson Susan    | San Rafael  | USA         | 236,769.39     |
+| Young Jeff      | NYC         | USA         | 72,370.09      |
+| Ferguson Peter  | Melbourne   | Australia   | 70,311.07      |
+| Labrune Janine  | Nantes      | France      | 60,875.30      |
+```
+**The above customers should be constantly attended to since they bring maximum sales for us.**
+3. Least engaged customers are<br/>
+```
+| Name           | City       | Country   | Sales (in USD) |
+|----------------|------------|-----------|----------------|
+| Young Mary     | Glendale   | USA       | 2,610.87       |
+| Taylor Leslie  | Brickhaven | USA       | 6,586.02       |
+| Ricotti Franco | Milan      | Italy     | 9,532.93       |
+| Schmitt Carine | Nantes     | France    | 10,063.80      |
+| Smith Thomas   | London     | UK        | 10,868.04      |
+```
+With VIP and least engaged customers, we can proceed with strategizing who's input to consider.<br/>
+**We should collaborate more with the above customers to improve relations.**
+4. Top 5 sales representatives among all the territories.
+
+```
+| ID   | Name             | Sales (in USD) | Rank |
+|------|------------------|----------------|------|
+| 1370 | Gerard Hernandez | 1,258,577.81   | 1    |
+| 1165 | Leslie Jennings  | 1,081,530.54   | 2    |
+| 1401 | Pamela Castillo  | 868,220.55     | 3    |
+| 1501 | Larry Bott       | 732,096.79     | 4    |
+| 1504 | Barry Jones      | 704,853.91     | 5    |
+```
+They are from all the locations and territories.
+
+
