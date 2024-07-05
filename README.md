@@ -1,11 +1,11 @@
-# _Retail Sales Analysis_
+# _Model Cars Database Analysis_
 ## Project Overview
 This project looks at the business data to analyze various aspects such as product sales performance, customer behaviour, product demand, and staff performance. I have used SQLite to extract meaningful information from a relational database.
 
 ## Data Sources
-The primary dataset used for the analysis is the "stores.db" file available in the repository within 'data'.
+The primary dataset used for the analysis is the "stores.db" file available in the repository within 'Data'.
 ## Tools
-SQLite - Data Analysis
+[SQLite](https://sqlitebrowser.org/dl/)
 ## Data
 Here are the different tables with their respective attributes and total number of rows.
 
@@ -118,8 +118,8 @@ The table shows the top 5 sales representatives among all the territories.<br/>
 The payment amount has not been considered since many customers have bought items independently.<br/>
 
 ## Findings
-Findings are in a Word document in (.docx) format under the results subcategory.
+Findings are in a Word document in (.docx) format under the 'Results' category.
 ## Recommendations 
-Recommendations are in a Word document in (.docx) format under the results subcategory.
+Recommendations are in a Word document in (.docx) format under the 'Results' category.
 ## Limitations
-Limitations are in a Word document in (.docx) format under the results subcategory.
+Limitations are in a Word document in (.docx) format under the 'Results' category.
