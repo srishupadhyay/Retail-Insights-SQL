@@ -5,7 +5,7 @@
 This project looks at the sales data to analyze aspects such as product sales performance, customer behaviour, product demand, and staff performance. I have used SQLite to extract meaningful information from a relational database.
 
 ## Data Sources
-The primary dataset used for the analysis is [stores.db](Data/stores.db) file also available in the repository under 'Data'.
+The dataset used for the analysis is [stores.db](Data/stores.db) file also available in the repository under 'Data'.
 ## Tools
 [SQLite](https://sqlitebrowser.org/dl/)
 ## Data
@@ -22,7 +22,7 @@ Here are the different tables with the total number of respective attributes and
 | Employees     | 8                    | 23        |
 | Offices       | 9                    | 7         |
 
-To better understand the relationship, look at the schema available in the repository under 'Schema'.
+To better understand the relationship, look at the schema available in the repository under ['Schema'](Schema/schema.png).
 ## Exploratory Data Analysis
 #### Q1. What are the top 10 products which have the highest demand?
 
